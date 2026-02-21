@@ -211,11 +211,15 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    /* Extend height to cover the transition between hero and next section properly */
+    height: 120vh;
     z-index: 0;
     overflow: hidden;
     pointer-events: auto;
-    /* 3D Interaction allowed */
+    /* Re-enable 3D Interaction */
+    /* Add gradient mask to fade out the bottom of the spline model so there are no hard cutoffs */
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0) 100%);
 }
 
 .hero-spline-bg spline-viewer {
@@ -225,6 +229,11 @@ body {
     opacity: 0.9;
     filter: saturate(0.8) brightness(1.1) hue-rotate(-10deg);
     /* Adjust hue slightly back towards light blue */
+}
+
+/* Hide Spline Logo */
+spline-viewer::part(logo) {
+    display: none !important;
 }
 
 .spline-overlay {

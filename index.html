@@ -20,12 +20,25 @@
             url="https://prod.spline.design/4yi5BXGV3AuPgoVN/scene.splinecode"></spline-viewer>
         <div class="spline-overlay"></div>
         <script>
+            const viewer = document.querySelector('spline-viewer');
+
+            // Prevent Spline from hijacking the page scroll on desktop
+            if (viewer) {
+                viewer.addEventListener('wheel', (e) => {
+                    e.stopPropagation();
+                }, { capture: true, passive: true });
+            }
+
             setTimeout(() => {
-                const viewer = document.querySelector('spline-viewer');
                 if (viewer && viewer.shadowRoot) {
                     const canvas = viewer.shadowRoot.querySelector('canvas');
                     if (canvas) {
                         canvas.style.backgroundColor = 'transparent';
+                    }
+                    // Hide the "Built with Spline" watermark
+                    const logo = viewer.shadowRoot.querySelector('#logo');
+                    if (logo) {
+                        logo.remove();
                     }
                 }
             }, 2000);
