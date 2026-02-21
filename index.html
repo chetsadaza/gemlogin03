@@ -10,9 +10,28 @@
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.58/build/spline-viewer.js"></script>
 </head>
 
 <body>
+    <!-- Spline Full Screen Background -->
+    <div class="hero-spline-bg">
+        <spline-viewer background="transparent"
+            url="https://prod.spline.design/4yi5BXGV3AuPgoVN/scene.splinecode"></spline-viewer>
+        <div class="spline-overlay"></div>
+        <script>
+            setTimeout(() => {
+                const viewer = document.querySelector('spline-viewer');
+                if (viewer && viewer.shadowRoot) {
+                    const canvas = viewer.shadowRoot.querySelector('canvas');
+                    if (canvas) {
+                        canvas.style.backgroundColor = 'transparent';
+                    }
+                }
+            }, 2000);
+        </script>
+    </div>
+
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
@@ -42,26 +61,8 @@
                         class="fas fa-play"></i> ดูวิดีโอสาธิต</a>
             </div>
         </div>
-        <div class="hero-visual reveal reveal-delay">
-            <div class="glass-dashboard">
-                <div class="dash-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                </div>
-                <div class="dash-body">
-                    <div class="flow-container">
-                        <div class="flow-node node-start"><span>Start</span></div>
-                        <div class="flow-line"></div>
-                        <div class="flow-node node-action"><i class="fab fa-facebook"></i> <span>Open App</span></div>
-                        <div class="flow-line"></div>
-                        <div class="flow-node node-action"><i class="fas fa-search"></i> <span>Search</span></div>
-                        <div class="flow-line"></div>
-                        <div class="flow-node node-action"><i class="fas fa-heart"></i> <span>Like & Follow</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Right side empty spacer to push text left -->
+        <div class="hero-spacer"></div>
     </header>
 
     <section id="why" class="why-section">

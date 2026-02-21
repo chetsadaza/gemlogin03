@@ -205,6 +205,40 @@ body {
 }
 
 /* Hero Section */
+/* Spline Full Background */
+.hero-spline-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: auto;
+    /* 3D Interaction allowed */
+}
+
+.hero-spline-bg spline-viewer {
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    opacity: 0.9;
+    filter: saturate(0.8) brightness(1.1) hue-rotate(-10deg);
+    /* Adjust hue slightly back towards light blue */
+}
+
+.spline-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(248, 250, 252, 1) 0%, rgba(248, 250, 252, 0.7) 45%, rgba(248, 250, 252, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Hero Section */
 .hero {
     min-height: 100vh;
     display: grid;
@@ -214,6 +248,14 @@ body {
     padding: 120px 5% 0;
     align-items: center;
     gap: 60px;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+    /* Let empty space pass clicks to background */
+}
+
+.hero-content {
+    pointer-events: auto;
 }
 
 .hero h1 {
