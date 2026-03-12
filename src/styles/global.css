@@ -17,6 +17,11 @@
     font-family: 'Inter', 'Noto Sans Thai', sans-serif;
 }
 
+html {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--bg-light);
     color: var(--text-main);
@@ -557,6 +562,12 @@ spline-viewer::part(logo) {
     color: var(--text-muted);
     margin-bottom: 24px;
     flex-grow: 1;
+}
+
+.bento-card.privacy-card {
+    justify-content: center;
+    padding-top: 56px;
+    padding-bottom: 56px;
 }
 
 .learn-more {
@@ -1100,6 +1111,27 @@ footer p {
 
     .bento-card {
         padding: 24px;
+    }
+
+    .why-section {
+        margin: 60px auto;
+        padding: 0 6%;
+    }
+
+    .bento-card.privacy-card {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    /* 3D character card on mobile */
+    .bento-card.bento-tilt {
+        margin-top: 24px;
+    }
+
+    .bento-tilt-media,
+    .bento-tilt-img {
+        width: 100%;
+        max-width: 100%;
     }
 
     .modules-banner {

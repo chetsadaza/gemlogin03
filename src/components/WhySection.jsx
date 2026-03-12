@@ -8,7 +8,7 @@ const TiltSwapCard = () => {
     return (
         <div
             ref={cardRef}
-            className="bento-card span-2 bento-tilt reveal reveal-delay-2"
+            className="bento-card span-2 bento-tilt reveal reveal-delay"
         >
             <div className="bento-tilt-media" aria-label="3D hover preview">
                 <img className="bento-tilt-img img-a" src={imgDefault} alt="Preview 1" />
@@ -44,7 +44,7 @@ const WhySection = () => {
                     </div>
                     <a href="#" className="learn-more mt-auto">เรียนรู้เพิ่มเติม <i className="fas fa-chevron-right"></i></a>
                 </div>
-                <div className="bento-card reveal reveal-delay-2">
+                <div className="bento-card privacy-card reveal reveal-delay-2">
                     <div className="card-icon"><i className="fas fa-shield-alt"></i></div>
                     <h3>ความเป็นส่วนตัว</h3>
                     <p>ปกป้องสูงสุด ใช้เทคโนโลยี anti-detection ที่ทรงพลัง พร้อมข้อมูลอุปกรณ์จริงเพื่อเปลี่ยนพารามิเตอร์อย่างปลอดภัย</p>
