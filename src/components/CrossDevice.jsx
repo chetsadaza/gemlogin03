@@ -19,6 +19,10 @@ const CrossDevice = () => {
                     <i className="fas fa-cloud"></i>
                     <h3>Cloud Phone</h3>
                 </div>
+                <div className="device-card">
+                    <i className="fas fa-cloud"></i>
+                    <h3>Cloud GemLogin</h3>
+                </div>
             </div>
 
             <div className="platform-support reveal">
