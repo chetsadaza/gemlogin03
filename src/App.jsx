@@ -1,12 +1,5 @@
 import { useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import WhySection from './components/WhySection';
-import Features from './components/Features';
-import Technology from './components/Technology';
-import CrossDevice from './components/CrossDevice';
-import Footer from './components/Footer';
-import './index.css'; // Global styles
+import Home from './pages/Home';
 
 function App() {
     useEffect(() => {
@@ -48,17 +41,7 @@ function App() {
         };
     }, []);
 
-    return (
-        <>
-            <Navbar />
-            <Hero />
-            <WhySection />
-            <Features />
-            <Technology />
-            <CrossDevice />
-            <Footer />
-        </>
-    );
+    return <Home />;
 }
 
 export default App;
