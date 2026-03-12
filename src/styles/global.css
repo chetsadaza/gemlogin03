@@ -445,6 +445,95 @@ spline-viewer::part(logo) {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(56, 189, 248, 0.08) 100%);
 }
 
+.bento-card.span-2 {
+    grid-column: span 2;
+}
+
+/* 3D Tilt + Fast Image Swap (Why Section) */
+.bento-card.bento-tilt {
+    transform: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    /* Pull this card up to meet the outer rounded block above */
+    margin-top: -14px;
+    z-index: 1;
+}
+
+.bento-card.bento-tilt:hover {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.bento-tilt-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.bento-tilt-title h3 {
+    margin-bottom: 6px;
+}
+
+.bento-tilt-title p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.bento-tilt-media {
+    position: relative;
+    border-radius: 0;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    aspect-ratio: 4 / 5;
+    transform: translateZ(20px);
+}
+
+.bento-tilt-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0;
+    object-position: center top;
+    transform: translateY(var(--bento-img-shift, -18px)) scale(1.01);
+    transition: opacity 90ms ease-out;
+    will-change: opacity;
+    user-select: none;
+    pointer-events: none;
+}
+
+.bento-tilt-img.img-a {
+    opacity: 1;
+}
+
+.bento-tilt-img.img-b {
+    opacity: 0;
+}
+
+.bento-card.bento-tilt:hover .bento-tilt-img.img-a {
+    opacity: 0;
+}
+
+.bento-card.bento-tilt:hover .bento-tilt-img.img-b {
+    opacity: 1;
+}
+
+.bento-tilt-glare {
+    display: none;
+}
+
+.bento-card.bento-tilt:hover .bento-tilt-glare {
+    display: none;
+}
+
 .card-icon {
     font-size: 1.8rem;
     color: var(--primary);
@@ -952,6 +1041,14 @@ footer p {
         grid-column: span 1;
     }
 
+    .bento-card.span-2 {
+        grid-column: span 1;
+    }
+
+    .bento-card.bento-tilt {
+        margin-top: 0;
+    }
+
     .feature-container,
     .feature-container.row-reverse {
         flex-direction: column;
@@ -965,6 +1062,18 @@ footer p {
     .device-grid {
         flex-direction: column;
         align-items: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bento-card.bento-tilt {
+        transition: border-color 0.3s, box-shadow 0.3s;
+        transform: none;
+    }
+
+    .bento-tilt-img {
+        transition: opacity 120ms ease-out;
+        transform: none;
     }
 }
 

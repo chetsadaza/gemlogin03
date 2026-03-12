@@ -1,3 +1,24 @@
+import { useRef } from 'react';
+import imgDefault from '../assets/images/1.png';
+import imgHover from '../assets/images/2.png';
+
+const TiltSwapCard = () => {
+    const cardRef = useRef(null);
+
+    return (
+        <div
+            ref={cardRef}
+            className="bento-card span-2 bento-tilt reveal reveal-delay-2"
+        >
+            <div className="bento-tilt-media" aria-label="3D hover preview">
+                <img className="bento-tilt-img img-a" src={imgDefault} alt="Preview 1" />
+                <img className="bento-tilt-img img-b" src={imgHover} alt="Preview 2" />
+                <div className="bento-tilt-glare" aria-hidden="true" />
+            </div>
+        </div>
+    );
+};
+
 const WhySection = () => {
     return (
         <section id="why" className="why-section">
@@ -29,6 +50,7 @@ const WhySection = () => {
                     <p>ปกป้องสูงสุด ใช้เทคโนโลยี anti-detection ที่ทรงพลัง พร้อมข้อมูลอุปกรณ์จริงเพื่อเปลี่ยนพารามิเตอร์อย่างปลอดภัย</p>
                     <a href="#" className="learn-more">เรียนรู้เพิ่มเติม <i className="fas fa-chevron-right"></i></a>
                 </div>
+                <TiltSwapCard />
             </div>
         </section>
     );
