@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const CrossDevice = () => {
     return (
         <section id="cross-device" className="cross-device-section">
@@ -19,10 +21,10 @@ const CrossDevice = () => {
                     <i className="fas fa-cloud"></i>
                     <h3>Cloud Phone</h3>
                 </div>
-                <div className="device-card">
+                <Link to="/cloud" className="device-card" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <i className="fas fa-cloud"></i>
                     <h3>Cloud GemLogin</h3>
-                </div>
+                </Link>
             </div>
 
             <div className="platform-support reveal">

@@ -1,8 +1,17 @@
 import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
+import Cloud from './pages/Cloud/Cloud';
 
 function App() {
+    const { pathname } = useLocation();
+
     useEffect(() => {
+        // Scroll to top on route change (unless there is a hash link)
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+
         // Scroll Reveal Animation Initialization
         const revealElements = document.querySelectorAll('.reveal');
 
@@ -39,9 +48,14 @@ function App() {
         return () => {
             revealOnScroll.disconnect();
         };
-    }, []);
+    }, [pathname]);
 
-    return <Home />;
+    return (
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cloud" element={<Cloud />} />
+        </Routes>
+    );
 }
 
 export default App;
