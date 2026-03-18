@@ -223,8 +223,13 @@ export default function RunScriptDashboard() {
                       placeholder="e.g. 445DC6..."
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-2 mt-0">Profile IDs (comma separated)</label>
+                  <div className="min-w-0">
+                    <label 
+                      className="block text-sm font-medium text-slate-700 mb-2 mt-0 truncate" 
+                      title="Profile IDs (comma separated)"
+                    >
+                      Profile IDs (comma separated)
+                    </label>
                     <input 
                       type="text" 
                       value={profileId}
