@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
-import Cloud from './pages/Cloud/Cloud';
+import RunScriptDashboard from './pages/Cloud/RunScriptDashboard';
 
 function App() {
     const { pathname } = useLocation();
@@ -53,7 +53,7 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cloud" element={<Cloud />} />
+            <Route path="/cloud" element={<RunScriptDashboard />} />
         </Routes>
     );
 }

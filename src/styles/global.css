@@ -1,62 +1,72 @@
-:root {
-    --bg-light: #ffffff;
-    --bg-card: rgba(255, 255, 255, 0.7);
-    --primary: #1d4ed8;
-    --primary-glow: rgba(29, 78, 216, 0.5);
-    --secondary: #38bdf8;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border-color: rgba(0, 0, 0, 0.08);
-    --glass-blur: blur(16px);
-}
+@layer theme, base, components, utilities;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', 'Noto Sans Thai', sans-serif;
-}
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
+/* Deliberately omitting @import "tailwindcss/preflight" layer(base) to avoid resetting custom CSS */
 
-html {
-    max-width: 100%;
-    width: 100%;
-    overflow-x: hidden !important;
-    overscroll-behavior-x: none;
-    touch-action: pan-y;
-}
+@layer base {
+    :root {
+        --bg-light: #ffffff;
+        --bg-card: rgba(255, 255, 255, 0.7);
+        --primary: #1d4ed8;
+        --primary-glow: rgba(29, 78, 216, 0.5);
+        --secondary: #38bdf8;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --border-color: rgba(0, 0, 0, 0.08);
+        --glass-blur: blur(16px);
+    }
 
-body {
-    background-color: var(--bg-light);
-    color: var(--text-main);
-    width: 100%;
-    overflow-x: hidden !important;
-    overscroll-behavior-x: none;
-    touch-action: pan-y;
-    line-height: 1.6;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+    }
 
-#root {
-    max-width: 100%;
-    overflow-x: hidden;
-}
+    html {
+        max-width: 100%;
+        width: 100%;
+        overflow-x: hidden !important;
+        overscroll-behavior-x: none;
+        touch-action: pan-y;
+    }
 
-/* Prevent horizontal scroll caused by oversized media/third-party embeds */
-img,
-svg,
-video,
-canvas,
-iframe,
-spline-viewer {
-    max-width: 100%;
-}
+    body {
+        background-color: var(--bg-light);
+        color: var(--text-main);
+        width: 100%;
+        overflow-x: hidden !important;
+        overscroll-behavior-x: none;
+        touch-action: pan-y;
+        line-height: 1.6;
+    }
 
-@supports (overflow-x: clip) {
-    html,
-    body,
     #root {
-        overflow-x: clip;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Prevent horizontal scroll caused by oversized media/third-party embeds */
+    img,
+    svg,
+    video,
+    canvas,
+    iframe,
+    spline-viewer {
+        max-width: 100%;
+    }
+
+    @supports (overflow-x: clip) {
+        html,
+        body,
+        #root {
+            overflow-x: clip;
+        }
     }
 }
+
+@layer components {
 
 /* Background Animated Blobs */
 .blob {
@@ -1175,4 +1185,5 @@ footer p {
         flex-direction: column;
         text-align: center;
     }
+}
 }
