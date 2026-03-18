@@ -14,6 +14,54 @@ export default function RunScriptDashboard() {
   });
   const [paramsBody, setParamsBody] = useState(() => localStorage.getItem('gemlogin_paramsBody') || JSON.stringify({ Searching: "Gemlogin", Website: "https://gemlogin.io" }, null, 2));
   
+  // Dynamic parameter fields derived from JSON
+  const [paramFields, setParamFields] = useState([]);
+  const [paramFieldsInited, setParamFieldsInited] = useState(false);
+
+  // Initialize paramFields from paramsBody on mount
+  useEffect(() => {
+    if (!paramFieldsInited) {
+      try {
+        const parsed = JSON.parse(paramsBody);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          setParamFields(Object.entries(parsed).map(([key, value]) => ({ key, value: String(value) })));
+        }
+      } catch (e) {
+        // ignore
+      }
+      setParamFieldsInited(true);
+    }
+  }, [paramsBody, paramFieldsInited]);
+
+  // Sync paramFields -> paramsBody JSON
+  const syncFieldsToJson = (fields) => {
+    const obj = {};
+    fields.forEach(({ key, value }) => {
+      if (key.trim()) obj[key.trim()] = value;
+    });
+    setParamsBody(JSON.stringify(obj, null, 2));
+  };
+
+  const handleParamFieldChange = (index, field, value) => {
+    const updated = [...paramFields];
+    updated[index] = { ...updated[index], [field]: value };
+    setParamFields(updated);
+  };
+
+  const handleSaveParams = () => {
+    syncFieldsToJson(paramFields);
+  };
+
+  const handleAddParamField = () => {
+    setParamFields(prev => [...prev, { key: '', value: '' }]);
+  };
+
+  const handleRemoveParamField = (index) => {
+    const updated = paramFields.filter((_, i) => i !== index);
+    setParamFields(updated);
+    syncFieldsToJson(updated);
+  };
+  
   const [status, setStatus] = useState('Idle'); // Idle, Running, Success, Error
   const [logs, setLogs] = useState([]);
   
@@ -223,6 +271,67 @@ export default function RunScriptDashboard() {
                   </label>
                 </div>
 
+                {/* Parameters Input - Form Fields */}
+                <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden">
+                  <div className="flex justify-between items-center px-5 py-3 border-b border-slate-700">
+                    <label className="text-sm font-semibold text-slate-200 mt-0 tracking-wide">Parameters Input</label>
+                    <div className="flex gap-2">
+                      <button 
+                        onClick={handleAddParamField}
+                        className="text-xs px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-lg transition-colors border border-slate-600 cursor-pointer font-medium"
+                      >
+                        + Add
+                      </button>
+                      <button 
+                        onClick={handleSaveParams}
+                        className="text-xs px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors border-none cursor-pointer font-medium"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    {paramFields.length > 0 ? (
+                      <div className="space-y-3">
+                        {paramFields.map((field, index) => (
+                          <div key={index} className="bg-slate-900/60 rounded-lg p-3 border border-slate-700/50 hover:border-slate-600 transition-colors">
+                            <div className="flex items-center justify-between mb-2">
+                              <input
+                                type="text"
+                                value={field.key}
+                                onChange={(e) => handleParamFieldChange(index, 'key', e.target.value)}
+                                className="bg-transparent text-slate-400 text-xs font-semibold tracking-wide outline-none border-none p-0 m-0 w-full uppercase box-border h-auto"
+                                placeholder="KEY NAME"
+                              />
+                              <button
+                                onClick={() => handleRemoveParamField(index)}
+                                className="p-1 text-slate-600 hover:text-red-400 bg-transparent border-none cursor-pointer transition-colors flex-shrink-0 ml-2"
+                                title="Remove"
+                              >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                                </svg>
+                              </button>
+                            </div>
+                            <input
+                              type="text"
+                              value={field.value}
+                              onChange={(e) => handleParamFieldChange(index, 'value', e.target.value)}
+                              className="w-full px-3 py-2.5 bg-slate-800 text-slate-100 border border-slate-600 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all m-0 box-border h-auto"
+                              placeholder="Enter value..."
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-6">
+                        <p className="text-slate-500 text-sm m-0">No parameters yet.</p>
+                        <p className="text-slate-600 text-xs mt-1 m-0">Paste JSON below or click "+ Add" to add parameters.</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div>
                   <div className="flex justify-between items-end mb-2">
                     <label className="block text-sm font-medium text-slate-700 mt-0">Parameter Body (JSON)</label>
@@ -237,46 +346,67 @@ export default function RunScriptDashboard() {
                     value={paramsBody}
                     onChange={(e) => {
                       const value = e.target.value;
-                      setParamsBody(value);
+                      let finalParamObj = null;
+                      
+                      // If cleared/empty, reset everything
+                      if (!value.trim()) {
+                        setParamsBody('');
+                        setToken('');
+                        setDeviceId('');
+                        setProfileId('');
+                        setWorkflowId('');
+                        setSoftId('1');
+                        setCloseBrowser(false);
+                        setParamFields([]);
+                        return;
+                      }
                       
                       try {
                         const parsed = JSON.parse(value);
-                        // If pasted JSON has 'token', 'profile_id', etc. extract them
-                        if (parsed && typeof parsed === 'object') {
-                          let updated = false;
-                          if (parsed.token) { setToken(parsed.token); updated = true; }
-                          if (parsed.device_id) { setDeviceId(parsed.device_id); updated = true; }
-                          if (parsed.profile_id) { 
-                            const ids = Array.isArray(parsed.profile_id) ? parsed.profile_id.join(', ') : parsed.profile_id;
-                            setProfileId(ids); 
-                            updated = true; 
-                          }
-                          if (parsed.workflow_id) { setWorkflowId(parsed.workflow_id); updated = true; }
-                          if (parsed.soft_id) { setSoftId(parsed.soft_id); updated = true; }
-                          if (parsed.close_browser !== undefined) { setCloseBrowser(parsed.close_browser === true || parsed.close_browser === 'true'); updated = true; }
+                        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                          // Check if this is a full webhook payload (has token, device_id, etc.)
+                          const hasWrapperKeys = parsed.token || parsed.device_id || parsed.profile_id || parsed.workflow_id;
                           
-                          // Determine what goes back into the text area
-                          if (updated) {
-                            if (parsed.parameter !== undefined) {
-                              // If there's an explicit 'parameter' object, keep only that
-                              setParamsBody(typeof parsed.parameter === 'object' ? JSON.stringify(parsed.parameter, null, 2) : String(parsed.parameter));
-                            } else {
-                              // Otherwise, collect any remaining unmapped keys and keep them as custom parameters
-                              const { 
-                                token, device_id, profile_id, workflow_id, soft_id, close_browser, 
-                                ...rest 
-                              } = parsed;
-                              
-                              if (Object.keys(rest).length > 0) {
-                                setParamsBody(JSON.stringify(rest, null, 2));
-                              } else {
-                                setParamsBody('{\n  \n}');
-                              }
+                          if (hasWrapperKeys) {
+                            // Extract wrapper fields to their respective inputs
+                            if (parsed.token) setToken(parsed.token);
+                            if (parsed.device_id) setDeviceId(parsed.device_id);
+                            if (parsed.profile_id) {
+                              const ids = Array.isArray(parsed.profile_id) ? parsed.profile_id.join(', ') : parsed.profile_id;
+                              setProfileId(ids);
                             }
+                            if (parsed.workflow_id) setWorkflowId(parsed.workflow_id);
+                            if (parsed.soft_id) setSoftId(parsed.soft_id);
+                            if (parsed.close_browser !== undefined) setCloseBrowser(parsed.close_browser === true || parsed.close_browser === 'true');
+                            
+                            // Determine what stays as parameters
+                            if (parsed.parameter !== undefined && typeof parsed.parameter === 'object') {
+                              finalParamObj = parsed.parameter;
+                            } else {
+                              const { token, device_id, profile_id, workflow_id, soft_id, close_browser, ...rest } = parsed;
+                              finalParamObj = Object.keys(rest).length > 0 ? rest : {};
+                            }
+                            setParamsBody(JSON.stringify(finalParamObj, null, 2));
+                          } else {
+                            // It's a direct parameter JSON object
+                            finalParamObj = parsed;
+                            setParamsBody(value);
                           }
+                        } else {
+                          setParamsBody(value);
                         }
                       } catch (err) {
-                        // Not valid JSON yet, just let user type normally
+                        // Not valid JSON yet, just let user type
+                        setParamsBody(value);
+                      }
+                      
+                      // Sync paramFields from the final parameter object
+                      if (finalParamObj && typeof finalParamObj === 'object' && !Array.isArray(finalParamObj)) {
+                        if (Object.keys(finalParamObj).length > 0) {
+                          setParamFields(Object.entries(finalParamObj).map(([k, v]) => ({ key: k, value: String(v) })));
+                        } else {
+                          setParamFields([]);
+                        }
                       }
                     }}
                     className="w-full h-32 px-4 py-3 bg-slate-800 text-sky-100 font-mono text-sm border border-slate-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none resize-none m-0 box-border leading-relaxed"
