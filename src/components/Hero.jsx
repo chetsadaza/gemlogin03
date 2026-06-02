@@ -53,7 +53,7 @@ const Hero = () => {
 
             <header className="hero">
                 <div className="hero-content reveal">
-                    <div className="badge">🚀 No-Code Mobile Automation Platform</div>
+                    <div className="badge">No-Code Mobile Automation Platform</div>
                     <h1 className="gradient-text">สร้าง workflow อัตโนมัติ<br />ด้วยการลากและวาง</h1>
                     <p className="hero-subtitle">ไม่ต้องเขียนโค้ด ก็สร้างแอปพลิเคชัน automation บนมือถือได้อย่างมืออาชีพ</p>
                     <div className="hero-cta">

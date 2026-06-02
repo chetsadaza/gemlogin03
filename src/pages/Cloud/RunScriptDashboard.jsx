@@ -167,28 +167,28 @@ export default function RunScriptDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-slate-800 font-sans pt-40 pb-12 m-0 mt-0 box-border leading-relaxed relative z-10 block">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 text-slate-800 font-sans pt-28 sm:pt-32 lg:pt-40 pb-8 sm:pb-12 m-0 mt-0 box-border leading-relaxed relative z-10 block">
       <Navbar />
       
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 sm:mt-6 lg:mt-10">
         
         {/* Header Section */}
-        <div className="text-center mb-10 mt-0 pt-0 block">
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl mb-4 mt-0 leading-tight block">
+        <div className="text-center mb-6 sm:mb-10 mt-0 pt-0 block">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 lg:text-5xl mb-3 sm:mb-4 mt-0 leading-tight block">
             Cloud <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-sky-400">Run Script</span>
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-normal m-0 mt-4 block">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-normal m-0 mt-2 sm:mt-4 block px-2 sm:px-0">
             Execute your GemLogin workflows instantly from the cloud. Monitor live logs and manage your automation seamlessly.
           </p>
         </div>
 
         {/* Main Dashboard Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
           
           {/* Left Column: Form Setup */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-slate-200/60 shadow-blue-500/10 transition-all hover:shadow-blue-500/20">
-              <div className="flex items-center justify-between mb-6">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-xl border border-slate-200/60 shadow-blue-500/10 transition-all hover:shadow-blue-500/20">
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
                 <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2 m-0 p-0 leading-none h-auto">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
@@ -212,7 +212,7 @@ export default function RunScriptDashboard() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2 mt-0">Device ID</label>
                     <input 
@@ -240,7 +240,7 @@ export default function RunScriptDashboard() {
                   </div>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-2 mt-0">Workflow ID</label>
                     <input 
@@ -421,7 +421,7 @@ export default function RunScriptDashboard() {
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-8 flex gap-3 h-auto">
+              <div className="mt-6 sm:mt-8 flex gap-3 h-auto">
                 <button 
                   onClick={handleRunScript}
                   disabled={status === 'Running'}
@@ -460,7 +460,7 @@ export default function RunScriptDashboard() {
 
           {/* Right Column: Log Console */}
           <div className="lg:col-span-7">
-            <div className="bg-[#0f111a] rounded-2xl shadow-2xl overflow-hidden border border-slate-700 flex flex-col h-full min-h-[400px]">
+            <div className="bg-[#0f111a] rounded-2xl shadow-2xl overflow-hidden border border-slate-700 flex flex-col h-full min-h-[300px] sm:min-h-[400px]">
               
               {/* Console Header */}
               <div className="bg-[#1a1d27] px-4 py-3 border-b border-slate-700 flex justify-between items-center">
@@ -484,7 +484,7 @@ export default function RunScriptDashboard() {
               </div>
 
               {/* Console Body */}
-              <div className="flex-1 p-4 overflow-y-auto font-mono text-sm">
+              <div className="flex-1 p-3 sm:p-4 overflow-y-auto font-mono text-xs sm:text-sm">
                 {logs.length === 0 ? (
                   <div className="h-full flex items-center justify-center text-slate-600">
                     No logs to display. Initialize a run.
@@ -492,7 +492,7 @@ export default function RunScriptDashboard() {
                 ) : (
                   <div className="space-y-1">
                     {logs.map((log, index) => (
-                      <div key={index} className="flex gap-3 hover:bg-white/5 px-2 py-0.5 rounded transition-colors">
+                      <div key={index} className="flex flex-wrap sm:flex-nowrap gap-1 sm:gap-3 hover:bg-white/5 px-2 py-0.5 rounded transition-colors">
                         <span className="text-slate-500 shrink-0 select-none">[{log.time}]</span>
                         <span className={`
                           ${log.type === 'error' ? 'text-red-400' : ''}
